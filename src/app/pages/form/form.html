@@ -1,0 +1,38 @@
+<div class="form-bg">
+  <div class="form-header">
+    <h1>QUESTIONNAIRE</h1>
+  </div>
+  <div class="idea-name">Name : {{ ideaName }}</div>
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <form *ngIf="!loading">
+    <div *ngFor="let q of questionnaire; let last = last" class="question-row">
+      <div class="question-title">{{ q.title }}</div>
+      <div class="question-content">
+        <div class="question-text">{{ q.question }}</div>
+        <hr />
+        <textarea [(ngModel)]="answers[q.id.toString()]" [name]="'answer_' + q.id" placeholder="Type your answer here"></textarea>
+        <div class="button-row">
+          <button type="button" (click)="saveProgress(q.id)">Save Answer</button>
+          <button type="button" (click)="openSampleModal(q.sample_answer)">Sample Answer</button>
+        </div>
+      </div>
+    </div>
+    <div class="submit-row">
+      <button type="button" class="submit-btn" (click)="submitAll()">Submit</button>
+      <button type="button" class="skip-btn" (click)="skipForNow()">Go to Dashboard</button>
+    </div>
+  </form>
+
+  <!-- Sample Answer Modal -->
+  <div class="modal-overlay" *ngIf="showSampleModal">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Sample Answer</h2>
+        <button class="close-btn" (click)="closeSampleModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <div [innerHTML]="sampleModalContent"></div>
+      </div>
+    </div>
+  </div>
+</div>

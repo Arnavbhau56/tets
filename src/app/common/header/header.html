@@ -1,0 +1,138 @@
+<header [class.scrolled]="scrolled">
+  <div class="header-container">
+    <!-- Left: Logo -->
+    <div class="header-logo">
+      <a href="https://www.ecell.in" target="_blank" rel="noopener">
+        <img src="assets/images/logo.png" alt="E-Cell Logo" draggable="false"/>
+      </a>
+    </div>
+
+    <!-- Center: Navigation (desktop) with Floating Dock Effect -->
+    <nav class="header-nav floating-dock" *ngIf="!showMobileMenu" 
+         (mousemove)="onMouseMove($event)" 
+         (mouseleave)="onMouseLeave()">
+      <div class="floating-dock-container">
+        <a routerLink="/" 
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}"
+           class="nav-item" 
+           #navItem
+           (mouseenter)="onItemHover($event.currentTarget, 'HOME')"
+           (mouseleave)="onItemLeave($event.currentTarget)">
+          <span class="nav-text">HOME</span>
+        </a>
+        <a routerLink="/structure" 
+           routerLinkActive="active"
+           class="nav-item" 
+           #navItem
+           (mouseenter)="onItemHover($event.currentTarget, 'STRUCTURE')"
+           (mouseleave)="onItemLeave($event.currentTarget)">
+          <span class="nav-text">STRUCTURE</span>
+        </a>
+        <a routerLink="/tracks" 
+           routerLinkActive="active"
+           class="nav-item" 
+           #navItem
+           (mouseenter)="onItemHover($event.currentTarget, 'TRACKS')"
+           (mouseleave)="onItemLeave($event.currentTarget)">
+          <span class="nav-text">TRACKS</span>
+        </a>
+        <a routerLink="/incentives" 
+           routerLinkActive="active"
+           class="nav-item" 
+           #navItem
+           (mouseenter)="onItemHover($event.currentTarget, 'INCENTIVES')"
+           (mouseleave)="onItemLeave($event.currentTarget)">
+          <span class="nav-text">INCENTIVES</span>
+        </a>
+        <a routerLink="/sponsors" 
+           routerLinkActive="active"
+           class="nav-item" 
+           #navItem
+           (mouseenter)="onItemHover($event.currentTarget, 'SPONSORS')"
+           (mouseleave)="onItemLeave($event.currentTarget)">
+          <span class="nav-text">SPONSORS</span>
+        </a>
+        <a routerLink="/pastwin" 
+           routerLinkActive="active"
+           class="nav-item" 
+           #navItem
+           (mouseenter)="onItemHover($event.currentTarget, 'PAST WINNERS')"
+           (mouseleave)="onItemLeave($event.currentTarget)">
+          <span class="nav-text">PAST WINNERS</span>
+        </a>
+        <a routerLink="/contact" 
+           routerLinkActive="active"
+           class="nav-item" 
+           #navItem
+           (mouseenter)="onItemHover($event.currentTarget, 'CONTACT')"
+           (mouseleave)="onItemLeave($event.currentTarget)">
+          <span class="nav-text">CONTACT</span>
+        </a>
+        <a routerLink="/media" 
+           routerLinkActive="active"
+           class="nav-item" 
+           #navItem
+           (mouseenter)="onItemHover($event.currentTarget, 'MEDIA PRESENCE')"
+           (mouseleave)="onItemLeave($event.currentTarget)">
+          <span class="nav-text">MEDIA PRESENCE</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Right: Login/Profile (desktop) -->
+    <div class="header-auth" *ngIf="!showMobileMenu">
+      <a *ngIf="!isLoggedIn" routerLink="/login" id="sizeee">LOGIN</a>
+      
+      <!-- Profile Dropdown for logged-in users -->
+      <div *ngIf="isLoggedIn" class="profile-dropdown" 
+           (mouseenter)="showProfileDropdown = true" 
+           (mouseleave)="showProfileDropdown = false">
+        <button class="profile-icon" (click)="toggleProfileDropdown()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20.5899 22C20.5899 18.13 16.7399 15 11.9999 15C7.25991 15 3.40991 18.13 3.40991 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        
+        <div class="dropdown-menu" [class.show]="showProfileDropdown">
+          <button class="dropdown-item" (click)="goToDashboard()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 22V12H15V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Dashboard
+          </button>
+          <button class="dropdown-item" (click)="logout()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16 17L21 12L16 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hamburger (mobile) -->
+    <button class="header-hamburger" [class.open]="showMobileMenu" (click)="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" *ngIf="showMobileMenu">
+    <a routerLink="/" (click)="toggleMobileMenu()">HOME</a>
+    <a routerLink="/structure" (click)="toggleMobileMenu()">STRUCTURE</a>
+    <a routerLink="/tracks" (click)="toggleMobileMenu()">TRACKS</a>
+    <a routerLink="/incentives" (click)="toggleMobileMenu()">INCENTIVES</a>
+    <a routerLink="/sponsors" (click)="toggleMobileMenu()">SPONSORS</a>
+    <a routerLink="/pastwin" (click)="toggleMobileMenu()">PAST WINNERS</a>
+    <a routerLink="/contact" (click)="toggleMobileMenu()">CONTACT</a>
+    <a routerLink="/media" (click)="toggleMobileMenu()">MEDIA PRESENCE</a>
+    <a *ngIf="isLoggedIn" routerLink="/dashboard" (click)="toggleMobileMenu()">DASHBOARD</a>
+    <a *ngIf="!isLoggedIn" routerLink="/login" (click)="toggleMobileMenu()">LOGIN</a>
+    <button *ngIf="isLoggedIn" (click)="logout(); toggleMobileMenu()">LOGOUT</button>
+  </div>
+</header>

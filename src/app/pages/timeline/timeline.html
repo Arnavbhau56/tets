@@ -1,0 +1,87 @@
+<div class="structure">
+    <div class="heading">
+        <h1>STRUCTURE</h1>
+    </div>
+    
+    <div class="timeline-tabs">
+        <button class="timeline-tab" [class.active]="activeTab === 'registration'" (click)="setTab('registration')">REGISTRATION</button>
+        <span class="timeline-arrow">&raquo;</span>
+        <button class="timeline-tab" [class.active]="activeTab === 'zonals'" (click)="setTab('zonals')">ZONALS</button>
+        <span class="timeline-arrow">&raquo;</span>
+        <button class="timeline-tab" [class.active]="activeTab === 'businessModel'" (click)="setTab('businessModel')">IGNITE</button>
+        <span class="timeline-arrow">&raquo;</span>
+        <button class="timeline-tab" [class.active]="activeTab === 'finale'" (click)="setTab('finale')">FINALE</button>
+    </div>
+
+    <app-tm [timelineItems]="timelineItemsForTm"></app-tm>
+</div>
+
+<div class="structure ht">
+    <div class="heading">
+        <h1>JUDGING CRITERIA</h1>
+    </div>
+    
+    <div style="text-align: -webkit-center">
+      <div class="accordion-container" style="width: 90%">
+        <div *ngFor="let panel of judgingCriteria; let i = index" class="accordion-panel">
+          <div class="accordion-header" (click)="toggleAccordion('criteria-' + i)">
+            <span class="accordion-title">{{ panel.title }}</span>
+            <span class="accordion-icon" [class.expanded]="isPanelExpanded('criteria-' + i)">
+                {{ isPanelExpanded('criteria-' + i) ? '×' : '+' }}
+            </span>
+          </div>
+          <div class="accordion-content" [class.show]="isPanelExpanded('criteria-' + i)">
+            <ul>
+              <li class='none' *ngFor="let item of panel.items">
+                <strong>{{ item.label }}</strong> {{ item.desc }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="structure ht">
+    <div class="heading">
+        <h1>RULES</h1>
+    </div>
+    
+    <div class="rules-tab-buttons">
+        <button 
+            class="rules-tab-button" 
+            [class.active]="activeRulesTab === 'general'"
+            (click)="loadGeneralRules()">
+            General
+        </button>
+        <button 
+            class="rules-tab-button" 
+            [class.active]="activeRulesTab === 'questionnaire'"
+            (click)="loadQuestionnaireRules()">
+            Questionnaire
+        </button>
+        <button 
+            class="rules-tab-button" 
+            [class.active]="activeRulesTab === 'pan'"
+            (click)="loadPanRules()">
+            PAN IIT Track
+        </button>
+    </div>
+
+    <!-- Loading and Error States -->
+    <div *ngIf="loading" class="rules-loading">Loading...</div>
+    <div *ngIf="error" class="rules-error">{{ error }}</div>
+
+    <!-- Rules Content -->
+    <div *ngIf="!loading && !error" class="rules-content">
+        <div class="rules-container">
+            <div class="rule-item">
+                <ol class="rules-list">
+                    <li *ngFor="let rule of rules; let i = index" class="rule-list-item">
+                        <div class="rule-content" [innerHTML]="getSafeHtml(rule.content)"></div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,365 @@
+<div class="tracks-container">
+  <app-interactive-grid 
+    [width]="80" 
+    [height]="80" 
+    [squares]="[25, 15]" 
+    className=""
+    squaresClassName=""
+  ></app-interactive-grid>
+  <div class="heading">
+    <h1>REGISTER</h1>
+  </div>
+  <div class="register-card">
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-step" [class.active]="currentPage >= 1" [class.completed]="currentPage > 1">
+          <div class="step-number">1</div>
+          <div class="step-label">EMAIL VERIFICATION</div>
+        </div>
+        <div class="progress-line" [class.completed]="currentPage > 1"></div>
+        <div class="progress-step" [class.active]="currentPage >= 2" [class.completed]="currentPage > 2">
+          <div class="step-number">2</div>
+          <div class="step-label">PERSONAL INFORMATION</div>
+        </div>
+        <div class="progress-line" [class.completed]="currentPage > 2"></div>
+        <div class="progress-step" [class.active]="currentPage >= 3">
+          <div class="step-number">3</div>
+          <div class="step-label">STARTUP INFORMATION</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 1: Email Verification -->
+    <form *ngIf="currentPage === 1" class="register-form" #page1Form="ngForm" id="page1Form" autocomplete="off">
+      <!-- Dummy field to trick autofill -->
+      <input type="text" style="display:none" autocomplete="off" />
+      <div class="input-group input-row">
+        <div class="input-col">
+          <label for="email">Email ID <span class="star">*</span></label>
+          <input
+            type="email"
+            id="email"
+            name="no-autofill-email"
+            [(ngModel)]="formData.email"
+            (input)="onEmailChange()"
+            required
+            autocomplete="off"
+            autocorrect="off"
+            spellcheck="false"
+          />
+          <div class="error-message" *ngIf="page1Submitted && !formData.email">This field is required</div>
+        </div>
+        <button class="btn send-otp-btn" type="button" (click)="showResend ? resendOtp() : sendOtp()" [disabled]="otpSent && !showResend">
+          <ng-container *ngIf="otpSent">
+            <ng-container *ngIf="!showResend">Wait {{ timer }}s</ng-container>
+            <ng-container *ngIf="showResend">Resend OTP</ng-container>
+          </ng-container>
+          <ng-container *ngIf="!otpSent">Send OTP</ng-container>
+        </button>
+      </div>
+
+      <div class="input-group" *ngIf="otpSent">
+        <label>OTP <span class="star">*</span></label>
+        <div class="otp-container">
+          <input type="number" maxlength="1" [(ngModel)]="otpDigits[0]" name="otp0" (input)="onOtpInput(0, $event)" (keydown)="onOtpKeydown(0, $event)" (paste)="onOtpPaste($event)" class="otp-input" />
+          <input type="number" maxlength="1" [(ngModel)]="otpDigits[1]" name="otp1" (input)="onOtpInput(1, $event)" (keydown)="onOtpKeydown(1, $event)" class="otp-input" />
+          <input type="number" maxlength="1" [(ngModel)]="otpDigits[2]" name="otp2" (input)="onOtpInput(2, $event)" (keydown)="onOtpKeydown(2, $event)" class="otp-input" />
+          <input type="number" maxlength="1" [(ngModel)]="otpDigits[3]" name="otp3" (input)="onOtpInput(3, $event)" (keydown)="onOtpKeydown(3, $event)" class="otp-input" />
+          <input type="number" maxlength="1" [(ngModel)]="otpDigits[4]" name="otp4" (input)="onOtpInput(4, $event)" (keydown)="onOtpKeydown(4, $event)" class="otp-input" />
+          <input type="number" maxlength="1" [(ngModel)]="otpDigits[5]" name="otp5" (input)="onOtpInput(5, $event)" (keydown)="onOtpKeydown(5, $event)" (paste)="onOtpPaste($event)" class="otp-input" />
+        </div>
+        <div class="error-message" *ngIf="page1Submitted && !isOtpComplete()">This field is required</div>
+      </div>
+
+      <div class="password-row" *ngIf="otpSent">
+        <div class="input-group">
+          <label for="password">Password <span class="star">*</span></label>
+          <input type="password" id="password" name="password" [(ngModel)]="formData.password" required />
+          <div class="error-message" *ngIf="page1Submitted && !formData.password">This field is required</div>
+        </div>
+        <div class="input-group">
+          <label for="confirmPassword">Confirm Password <span class="star">*</span></label>
+          <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" required />
+          <div class="error-message" *ngIf="page1Submitted && formData.password !== confirmPassword">Passwords do not match</div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn next-btn" type="button" (click)="nextPage()" [disabled]="!otpSent">Next</button>
+      </div>
+    </form>
+
+    <!-- Page 2: Personal Information -->
+    <form *ngIf="currentPage === 2" class="register-form" #page2Form="ngForm" id="page2Form">
+      <div class="form-row">
+        <div class="input-group">
+          <label for="firstName">First Name <span class="star">*</span></label>
+          <input type="text" id="firstName" name="firstName" [(ngModel)]="formData.first_name" required />
+          <div class="error-message" *ngIf="page2Submitted && !formData.first_name">This field is required</div>
+        </div>
+        <div class="input-group">
+          <label for="lastName">Last Name <span class="star">*</span></label>
+          <input type="text" id="lastName" name="lastName" [(ngModel)]="formData.last_name" required />
+          <div class="error-message" *ngIf="page2Submitted && !formData.last_name">This field is required</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-group">
+          <label for="gender">Gender <span class="star">*</span></label>
+          <select id="gender" name="gender" [(ngModel)]="formData.gender" required>
+            <option value="">Select Gender</option>
+            <option *ngFor="let option of genderOptions" [value]="option.value">{{ option.viewValue }}</option>
+          </select>
+          <div class="error-message" *ngIf="page2Submitted && !formData.gender">This field is required</div>
+        </div>
+        <div class="input-group">
+          <label for="countryCode">Country Code <span class="star">*</span></label>
+          <div class="custom-select-wrapper">
+            <input
+              type="text"
+              id="countryCode"
+              name="countryCode"
+              [(ngModel)]="formData.country_code"
+              #countryCodeInput
+              (input)="filterCountryCodes(countryCodeInput.value)"
+              (focus)="showCountryDropdown = true"
+              (blur)="hideCountryDropdown()"
+              placeholder="Select or search country code"
+              autocomplete="off"
+              required
+            />
+            <ul class="custom-select-dropdown" *ngIf="showCountryDropdown && filteredCountriesList.length">
+              <li *ngFor="let country of filteredCountriesList" (mousedown)="selectCountryCode(country)">
+                {{ country.flag }} +{{ country.countryCallingCode }} ({{ country.countryNameEn }})
+              </li>
+            </ul>
+          </div>
+          <div class="error-message" *ngIf="page2Submitted && !formData.country_code">This field is required</div>
+        </div>
+        <div class="input-group">
+          <label for="contactNumber">Contact Number <span class="star">*</span></label>
+          <input type="text" id="contactNumber" name="contactNumber" [(ngModel)]="formData.contact_number" required maxlength="16" pattern="[0-9]*" />
+          <div class="error-message" *ngIf="page2Submitted && !formData.contact_number">This field is required</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-group">
+          <label for="country">Country <span class="star">*</span></label>
+          <input type="text" id="country" name="country" [(ngModel)]="formData.country" />
+        </div>
+      </div>
+
+      <!-- India-specific fields -->
+      <div class="form-row" *ngIf="formData.country?.toLowerCase() === 'india'">
+        <div class="input-group">
+          <label for="postalCode">Postal Code<span class="star">*</span></label>
+          <input type="text" id="postalCode" name="postalCode" [(ngModel)]="formData.pin_code" (input)="onPostalCodeInput()" (blur)="onPostalCodeChange()" maxlength="6" minlength="6" required />
+          <div class="error-message" *ngIf="page2Submitted && !formData.pin_code">This field is required</div>
+          <div class="info-message">Enter 6-digit postal code to auto-fill state and city</div>
+        </div>
+        <div class="input-group">
+          <label for="state">State <span class="star">*</span></label>
+          <select id="state" name="state" [(ngModel)]="formData.state" [disabled]="postalCodeAutoFilled" (change)="onStateChange()" required>
+            <option value="">Select State</option>
+            <option *ngFor="let option of stateOptions" [value]="option.value">{{ option.viewValue }}</option>
+          </select>
+          <div class="error-message" *ngIf="page2Submitted && !formData.state">This field is required</div>
+          <div class="info-message" *ngIf="postalCodeAutoFilled">Auto-filled from postal code</div>
+        </div>
+        <div class="input-group">
+          <label for="city">City <span class="star">*</span></label>
+          <input type="text" id="city" name="city" [(ngModel)]="formData.city" [disabled]="postalCodeAutoFilled" (input)="onCityChange()" required />
+          <div class="error-message" *ngIf="page2Submitted && !formData.city">This field is required</div>
+          <div class="info-message" *ngIf="postalCodeAutoFilled">Auto-filled from postal code</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-group">
+          <label for="professionalStatus">Current Professional Status <span class="star">*</span></label>
+          <select id="professionalStatus" name="professionalStatus" [(ngModel)]="formData.current_professional_status" required>
+            <option value="">Select Status</option>
+            <option *ngFor="let option of statusOptions" [value]="option.value">{{ option.viewValue }}</option>
+          </select>
+          <div class="error-message" *ngIf="page2Submitted && !formData.current_professional_status">This field is required</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <!-- Referral Section Start -->
+        <div class="input-group full-width-group">
+          <label for="hearAbout">From where did you hear about Eureka! 2025 <span class="star">*</span></label>
+          <select id="hearAbout" name="hearAbout" [(ngModel)]="formData.where_did_you_hear" (change)="onHearAboutChange()" required>
+            <option value="">Select Option</option>
+            <option value="Venture Capitalist">Venture Capitalist</option>
+            <option value="Incubation Partner">Incubation Partner</option>
+            <option value="TiE">TiE</option>
+            <option value="Government Partners">Government Partners</option>
+            <option value="Online Articles/Newspaper">Online Articles/Newspaper</option>
+            <option value="CAC">CA</option>
+            <option value="NEC">NEC</option>
+            <option value="CA-NEC">CA and NEC Both</option>
+            <option value="Previous Years Participants">Previous Years Participants</option>
+            <option value="Friend/Colleague Referral">Friend/Colleague Referral</option>
+            <option value="Others">Others</option>
+          </select>
+          <div class="error-message" *ngIf="page2Submitted && !formData.where_did_you_hear">This field is required</div>
+        </div>
+        <div class="input-group" *ngIf="formData.where_did_you_hear === 'Others'">
+          <label for="hearAboutOther">Please specify</label>
+          <input type="text" id="hearAboutOther" name="hearAboutOther" [(ngModel)]="formData.where_did_you_hear_other" required />
+          <div class="error-message" *ngIf="page2Submitted && !formData.where_did_you_hear_other">This field is required</div>
+        </div>
+        <!-- Show CA and NEC ID fields only if 'CA and NEC Both' is selected -->
+        <div class="form-row ca-nec-row" *ngIf="formData.where_did_you_hear === 'CA-NEC'">
+          <div class="input-group half-width-group">
+            <label for="caId">CA ID <span class="star">*</span></label>
+            <input type="text" id="caId" name="caId" [(ngModel)]="caNecIds.caId" required />
+            <div class="error-message" *ngIf="page2Submitted && !caNecIds.caId">This field is required</div>
+          </div>
+          <div class="input-group half-width-group">
+            <label for="necId">NEC ID <span class="star">*</span></label>
+            <input type="text" id="necId" name="necId" [(ngModel)]="caNecIds.necId" required />
+            <div class="error-message" *ngIf="page2Submitted && !caNecIds.necId">This field is required</div>
+          </div>
+        </div>
+        <!-- Only show referral fields if not CA-NEC -->
+        <div class="form-row" *ngIf="showReferralDropdown && formData.where_did_you_hear !== 'CA-NEC'">
+          <div class="input-group">
+            <label for="referralId">Referral <span class="star">*</span></label>
+            <select id="referralId" name="referralId" [(ngModel)]="formData.referral_id" (change)="onReferralChange()">
+              <option value="">Select Referral</option>
+              <option *ngFor="let referral of referralOptions" [value]="referral.referral">{{ referral.referral }}</option>
+            </select>
+          </div>
+          <div class="input-group" *ngIf="formData.referral_id === 'Other'">
+            <label for="referralOther">Please specify</label>
+            <input type="text" id="referralOther" name="referralOther" [(ngModel)]="formData.referral_other" required />
+            <div class="error-message" *ngIf="page2Submitted && !formData.referral_other">This field is required</div>
+          </div>
+        </div>
+        <div class="form-row" *ngIf="showReferralInput && formData.where_did_you_hear !== 'CA-NEC'">
+          <div class="input-group">
+            <label for="referralIdInput">Referral ID (optional)</label>
+            <input type="text" id="referralIdInput" name="referralIdInput" [(ngModel)]="formData.referral_id" />
+          </div>
+        </div>
+        <!-- Referral Section End -->
+      </div>
+
+      <div class="form-actions" *ngIf="currentPage === 2">
+        <button class="btn prev-btn" type="button" (click)="previousPage()">Previous</button>
+        <button class="btn register-btn" type="button" (click)="registerUser()">Register</button>
+      </div>
+    </form>
+
+    <!-- Page 3: Startup Information -->
+    <form *ngIf="currentPage === 3" class="register-form" #page3Form="ngForm" id="page3Form">
+      <div class="input-group">
+        <label for="startupName">Venture Name <span class="star">*</span></label>
+        <input type="text" id="startupName" name="startupName" [(ngModel)]="formData.startup_name" required />
+        <div class="error-message" *ngIf="page3Submitted && !formData.startup_name">This field is required</div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-group">
+          <label for="track">Track <span class="star">*</span></label>
+          <select id="track" name="track" [(ngModel)]="formData.track" required>
+            <option value="">Select Track</option>
+            <option *ngFor="let option of trackOptions" [value]="option.value">{{ option.viewValue }}</option>
+          </select>
+          <div class="error-message" *ngIf="page3Submitted && !formData.track">This field is required</div>
+        </div>
+        <div class="input-group">
+          <label for="websiteUrl">Website URL (must start with https://www.)</label>
+          <input type="url" id="websiteUrl" name="websiteUrl" [(ngModel)]="formData.website_url" pattern="https?://.*" />
+          <div class="error-message" *ngIf="page3Submitted && formData.website_url && !isValidWebsiteUrl(formData.website_url)">Please enter a valid Website URL</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-group">
+          <label for="dpiitRegistered">Is your idea DPIIT registered? <span class="star">*</span></label>
+          <select id="dpiitRegistered" name="dpiitRegistered" [(ngModel)]="formData.dpiit_registered" (change)="onDpiitChange()" required>
+            <option value="">Select Option</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+          <div class="error-message" *ngIf="page3Submitted && !formData.dpiit_registered">This field is required</div>
+        </div>
+      </div>
+
+      <div class="input-group" *ngIf="formData.dpiit_registered === 'yes'">
+        <label for="dpiitNumber">DPIIT Recognition Number <span class="star">*</span></label>
+        <input type="text" id="dpiitNumber" name="dpiitNumber" [(ngModel)]="formData.dpiit_recognition_number" required />
+        <div class="error-message" *ngIf="page3Submitted && !formData.dpiit_recognition_number">This field is required</div>
+      </div>
+
+      <div class="form-row" *ngIf="formData.dpiit_registered === 'no'">
+        <div class="input-group">
+          <label for="otherOrganization">Registered under any other organization? <span class="star">*</span></label>
+          <select id="otherOrganization" name="otherOrganization" [(ngModel)]="formData.any_other_organization" (change)="onOtherOrgChange()" required>
+            <option value="">Select Option</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+          <div class="error-message" *ngIf="page3Submitted && !formData.any_other_organization">This field is required</div>
+        </div>
+      </div>
+
+      <div class="form-row" *ngIf="formData.any_other_organization === 'yes'">
+        <div class="input-group">
+          <label for="orgName">Name of the Body <span class="star">*</span></label>
+          <input type="text" id="orgName" name="orgName" [(ngModel)]="formData.name_of_organization" required />
+          <div class="error-message" *ngIf="page3Submitted && !formData.name_of_organization">This field is required</div>
+        </div>
+        <div class="input-group">
+          <label for="orgRegNumber">Registration Number <span class="star">*</span></label>
+          <input type="text" id="orgRegNumber" name="orgRegNumber" [(ngModel)]="formData.registration_number_of_organization" required />
+          <div class="error-message" *ngIf="page3Submitted && !formData.registration_number_of_organization">This field is required</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-group">
+          <label for="sector1">Sector 1 <span class="star">*</span></label>
+          <select id="sector1" name="sector1" [(ngModel)]="formData.sector_1" required>
+            <option value="">Select Sector</option>
+            <option *ngFor="let option of sectorOptions" [value]="option.value" [disabled]="isSectorDisabled(option.value, 'sector_1')">{{ option.viewValue }}</option>
+          </select>
+          <div class="error-message" *ngIf="page3Submitted && !formData.sector_1">This field is required</div>
+        </div>
+        <div class="input-group">
+          <label for="sector2">Sector 2 <span class="star">*</span></label>
+          <select id="sector2" name="sector2" [(ngModel)]="formData.sector_2" required>
+            <option value="">Select Sector</option>
+            <option *ngFor="let option of sectorOptions" [value]="option.value" [disabled]="isSectorDisabled(option.value, 'sector_2')">{{ option.viewValue }}</option>
+          </select>
+          <div class="error-message" *ngIf="page3Submitted && !formData.sector_2">This field is required</div>
+        </div>
+        <div class="input-group">
+          <label for="sector3">Sector 3 <span class="star">*</span></label>
+          <select id="sector3" name="sector3" [(ngModel)]="formData.sector_3" required>
+            <option value="">Select Sector</option>
+            <option *ngFor="let option of sectorOptions" [value]="option.value" [disabled]="isSectorDisabled(option.value, 'sector_3')">{{ option.viewValue }}</option>
+          </select>
+          <div class="error-message" *ngIf="page3Submitted && !formData.sector_3">This field is required</div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="ideaDescription">Brief Idea Description <span class="star">*</span></label>
+        <textarea id="ideaDescription" name="ideaDescription" [(ngModel)]="formData.idea_description" rows="4" required></textarea>
+        <div class="error-message" *ngIf="page3Submitted && !formData.idea_description">This field is required</div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn skip-btn" type="button" (click)="skipIdea()">Skip</button>
+        <button class="btn submit-btn" type="button" (click)="submitIdea()">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

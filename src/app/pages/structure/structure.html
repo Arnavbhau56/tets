@@ -1,0 +1,26 @@
+<div id="cards" class="card-section">
+  <div class="card-wrapper" *ngFor="let card of cards; let i = index">
+    <div
+      class="card"
+    [ngStyle]="{
+      '--index': card.index,
+      'background-color': card.color,
+      'color': card.textColor
+    }"
+    [attr.data-index]="i"
+  >
+    <div class="card-content">
+      <div>
+        <h2>{{ card.title }}</h2>
+        <p class="date">
+          {{ card.date }}
+        </p>
+        <p class="desc">{{ card.description }}</p>
+      </div>
+      <figure>
+        <img [src]="card.img" [alt]="card.title + ' Icon'" draggable="false"/>
+      </figure>
+    </div>
+  </div>
+  </div>
+</div>

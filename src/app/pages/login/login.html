@@ -1,0 +1,32 @@
+<div class="tracks-container">
+  <app-interactive-grid 
+    [width]="80" 
+    [height]="80" 
+    [squares]="[25, 15]" 
+    className=""
+    squaresClassName=""
+  ></app-interactive-grid>
+  <div class="heading">
+    <h1>LOGIN</h1>
+  </div>
+  <div class="login-card">
+    <form class="login-form" (ngSubmit)="onLogin()" #loginForm="ngForm">
+      <div class="input-group">
+        <label for="email">Email ID</label>
+        <input type="email" id="email" name="email" [(ngModel)]="email" required autocomplete="email" />
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" [(ngModel)]="password" required autocomplete="current-password" />
+      </div>
+      <button class="btn login-btn" type="submit">LOGIN</button>
+    </form>
+    <div class="login-links">
+      <a (click)="onResetPassword()">Reset Password</a>
+      <a (click)="onRegister()">New user? Register here</a>
+    </div>
+    <div class="divider"><span class="divider-text">or</span></div>
+    <div id="google-login-button" style="display: flex; justify-content: center;"></div>
+  </div>
+</div>
+  

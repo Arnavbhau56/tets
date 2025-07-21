@@ -1,0 +1,716 @@
+.structure{
+    padding: 2rem;
+    min-height: 100vh;
+    box-sizing: border-box;
+    background-color: black;
+    padding-top: 110px;
+}
+
+  .ht{
+    padding-top: 30px;
+    min-height: 0;
+  }
+  
+  .heading{
+      font-family: "Thunder", 'Lilita One';
+      color: white;
+      font-size: 4rem;
+      text-align: center;
+      letter-spacing: 3px;
+      margin-bottom: 40px;
+  }
+
+.timeline-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.timeline-tab {
+  font-family: "Thunder", Arial, sans-serif;
+  background: transparent;
+  color: #888;
+  border: none;
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  outline: none;
+  transition: color 0.2s;
+}
+
+.timeline-tab.active {
+  color: #2386f8;
+  text-shadow: 0 2px 8px #2386f855;
+}
+
+.timeline-arrow {
+  color: #2386f8;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0 0.5rem;
+  margin-bottom: 1rem;
+  user-select: none;
+}
+
+/* Styles for Judging Criteria and Rules sections */
+.phone {
+  display: block;
+}
+
+/* Custom Accordion Styles */
+.loading, .error {
+  text-align: center;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  padding: 2rem;
+}
+
+.error {
+  color: #ff6b6b;
+}
+
+.none{
+  list-style: none;
+}
+
+.accordion-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.accordion-panel {
+  border: 1px solid white;
+  margin: 2rem;
+  background: transparent;
+  text-align: left;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
+}
+
+.accordion-header {
+  background: transparent;
+  padding: 1vh 2.5vh;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.accordion-title {
+  color: white;
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+}
+
+.accordion-icon {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.accordion-icon.expanded {
+  transform: rotate(45deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  background: transparent;
+  color: white;
+  padding: 0 2.5vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+.accordion-content.show {
+  max-height: 500px !important;
+  padding: 2.5vh;
+  overflow: visible !important;
+}
+
+.accordion-content p {
+  margin: 0;
+  list-style: none;
+  line-height: 1.8;
+  color: white;
+  font-size: 16px;
+}
+
+/* Remove hover effects that interfere with click behavior */
+@media (min-width: 768px) {
+  .accordion-panel:hover .accordion-content {
+    max-height: 500px;
+    padding: 2.5vh;
+  }
+  .accordion-panel:hover .accordion-icon {
+    transform: rotate(45deg);
+  }
+}
+
+/* Rules Section Styles */
+.rules-tab-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.rules-tab-button {
+  font-family: "Thunder", 'Lilita One';
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  width: 275px;
+  height: 65px;
+  margin-bottom: 1rem;
+  padding-top: 0.2rem;
+}
+
+.rules-tab-button:hover {
+  background-color: white;
+  color: black;
+  transform: translateY(-2px);
+}
+
+.rules-tab-button.active {
+  background-color: white;
+  color: black;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+}
+
+.rules-content {
+  margin-top: 2rem;
+}
+
+.rules-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.rule-item {
+  background-color: #001A3C;
+  color: white;
+  font-family: "Poppins";
+  border: 1px solid white;
+  border-radius: 8px;
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+}
+
+.rules-list {
+  margin: 4px;
+  padding-left: 0;
+}
+
+.rule-content {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  margin-bottom: 0.6rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.rule-content p {
+  margin-bottom: 1rem;
+}
+
+.rule-content ul {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+.rule-content li {
+  margin-bottom: 0.5rem;
+}
+
+/* Additional styles for HTML content */
+.rule-content h1, .rule-content h2, .rule-content h3, .rule-content h4, .rule-content h5, .rule-content h6 {
+  color: white;
+  margin: 1rem 0 0.5rem 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.rule-content strong, .rule-content b {
+  font-weight: 600;
+  color: white;
+}
+
+.rule-content em, .rule-content i {
+  font-style: italic;
+  color: white;
+}
+
+.rule-content a {
+  color: #2386f8;
+  text-decoration: underline;
+}
+
+.rule-content a:hover {
+  color: #4CAF50;
+}
+
+.rule-content blockquote {
+  border-left: 3px solid #2386f8;
+  margin: 1rem 0;
+  padding-left: 1rem;
+  font-style: italic;
+}
+
+.rule-content code {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+.rule-content pre {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 5px;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.rule-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.rule-content th, .rule-content td {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.rule-content th {
+  background-color: rgba(255, 255, 255, 0.1);
+  font-weight: 600;
+}
+
+.rules-loading, .rules-error {
+  text-align: center;
+  color: white;
+  font-family: "Thunder", 'Lilita One';
+  font-size: 1.5rem;
+  margin-top: 2rem;
+}
+
+.rules-error {
+  color: #ff6b6b;
+}
+
+/* Remove hover transform effect that interferes with click behavior */
+/* .accordion-panel:hover {
+  transform: translateY(-3px);
+} */
+
+/* Consolidated Responsive Media Queries */
+
+@media (max-width: 1200px) {
+  .structure {
+    padding: 1.5rem;
+    padding-top: 90px;
+  }
+  .heading {
+    font-size: 3.5rem;
+    margin-bottom: 30px;
+  }
+  .timeline-tabs {
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .timeline-tab {
+    font-size: 2.2rem;
+  }
+  .timeline-arrow {
+    font-size: 1.8rem;
+  }
+  .accordion-panel {
+    margin: 1.5rem;
+  }
+  .accordion-title {
+    font-size: 16px;
+  }
+  .accordion-content li {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 992px) {
+  .structure {
+    padding: 1.2rem;
+    padding-top: 90px;
+  }
+  .heading {
+    font-size: 3rem;
+    margin-bottom: 25px;
+  }
+  .timeline-tabs {
+    gap: 1.2rem;
+    margin-bottom: 2.5rem;
+  }
+  .timeline-tab {
+    font-size: 2rem;
+  }
+  .timeline-arrow {
+    font-size: 1.6rem;
+  }
+  .accordion-panel {
+    margin: 1.2rem;
+  }
+  .accordion-header {
+    padding: 0.8vh 2vh;
+  }
+  .accordion-title {
+    font-size: 15px;
+  }
+  .accordion-content {
+    padding: 0 2vh;
+  }
+  .accordion-content.show {
+    padding: 2vh;
+  }
+  .accordion-content li {
+    font-size: 14px;
+    margin: 10px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .structure {
+    padding: 1rem;
+    padding-top: 90px;
+  }
+
+  .ht{
+    padding-top: 40px;
+  }
+
+  .heading {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+  }
+
+  .accordion-panel {
+    margin: 1rem;
+  }
+  .accordion-header {
+    padding: 0.6vh 1.5vh;
+  }
+  .accordion-title {
+    font-size: 14px;
+  }
+  .accordion-icon {
+    font-size: 20px;
+  }
+  .accordion-content {
+    padding: 0 1.5vh;
+  }
+  .accordion-content.show {
+    padding: 1.5vh;
+  }
+  .accordion-content li {
+    font-size: 13px;
+    margin: 8px 0;
+  }
+  .rules-content {
+    padding: 0.8rem;
+  }
+  .rules-text {
+    padding: 1.2rem;
+  }
+  .rules-text p {
+    font-size: 1rem;
+  }
+  .rules-text li {
+    font-size: 0.85rem;
+  }
+  .timeline-tabs {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .timeline-tab {
+    font-size: 1.8rem;
+    min-width: 90px;
+  }
+  .accordion-container{
+    width: 95% !important;
+  }
+  .accordion-panel {
+    margin: 1rem;
+  }
+  .accordion-header {
+    padding: 1vh;
+  }
+  .accordion-title {
+    font-size: 14px;
+  }
+  .accordion-content p {
+    font-size: 14px;
+  }
+  .rules-tab-buttons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .rules-tab-button {
+    margin: auto;
+    width: 10rem;
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+  .rules-container {
+    padding: 1rem;
+  }
+  .rule-item {
+    margin-bottom: 1rem;
+  }
+  .rule-content h1, .rule-content h2, .rule-content h3, .rule-content h4, .rule-content h5, .rule-content h6 {
+    font-size: 1rem;
+    margin: 0.8rem 0 0.4rem 0;
+  }
+  
+  .rule-content p {
+    font-size: 0.9rem;
+  }
+  
+  .rule-content ul, .rule-content ol {
+    padding-left: 1.5rem;
+  }
+  
+  .rule-content li {
+    font-size: 0.85rem;
+  }
+  
+  .rule-content blockquote {
+    padding-left: 0.8rem;
+    font-size: 0.85rem;
+  }
+  
+  .rule-content code {
+    font-size: 0.8rem;
+  }
+  
+  .rule-content pre {
+    padding: 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .rule-content table {
+    font-size: 0.8rem;
+  }
+  
+  .rule-content th, .rule-content td {
+    padding: 0.3rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .accordion-container {
+    width: 95%;
+  }
+  .accordion-content {
+    padding: 0 1vh;
+  }
+  .accordion-content.show {
+    padding: 1vh;
+  }
+  .accordion-content p {
+    font-size: 13px;
+  }
+
+  .ht{
+    padding-top: 40px;
+  }
+}
+
+@media (max-width: 576px) {
+  .structure {
+    padding: 0.8rem;
+    padding-top: 90px;
+  }
+  .ht{
+    padding-top: 40px;
+  }
+  .heading {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    letter-spacing: 1.5px;
+  }
+  .timeline-tabs {
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .timeline-tab {
+    font-size: 1.5rem;
+    min-width: 70px;
+  }
+  .timeline-arrow {
+    font-size: 1.2rem;
+    margin: 0 0.2rem;
+  }
+  .accordion-panel {
+    margin: 0.8rem;
+  }
+  .accordion-header {
+    padding: 0.5vh 1.2vh;
+  }
+  .accordion-title {
+    font-size: 13px;
+  }
+  .accordion-icon {
+    font-size: 18px;
+  }
+  .accordion-content {
+    padding: 0 1.2vh;
+  }
+  .accordion-content.show {
+    padding: 1.2vh;
+  }
+  .accordion-content li {
+    font-size: 12px;
+    margin: 6px 0;
+  }
+  .rules-content {
+    padding: 0.6rem;
+  }
+  .rules-text {
+    padding: 1rem;
+  }
+  .rules-text p {
+    font-size: 0.9rem;
+  }
+  .rules-text li {
+    font-size: 0.8rem;
+  }
+  .accordion-container {
+    width: 100% !important;
+  }
+  .accordion-content {
+    padding: 0 1vh;
+  }
+  .accordion-content.show {
+    padding: 1vh;
+  }
+  .accordion-content p {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .structure {
+    padding: 0.5rem;
+    padding-top: 90px;
+  }
+  .ht{
+    padding-top: 40px;
+  }
+  .heading {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+  .timeline-tabs {
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+  }
+  .timeline-tab {
+    font-size: 1.8rem;
+    min-width: 60px;
+  }
+  .timeline-arrow {
+    font-size: 1rem;
+    margin: 0 0.15rem;
+  }
+  .accordion-panel {
+    margin: 0.5rem;
+  }
+  .accordion-header {
+    padding: 0.4vh 1vh;
+  }
+  .accordion-title {
+    font-size: 12px;
+  }
+  .accordion-icon {
+    font-size: 16px;
+  }
+  .accordion-content {
+    padding: 0 1vh;
+  }
+  .accordion-content.show {
+    padding: 1vh;
+  }
+  .accordion-content li {
+    font-size: 11px;
+    margin: 5px 0;
+  }
+  .rules-content {
+    padding: 0.4rem;
+  }
+  .rules-text {
+    padding: 0.8rem;
+  }
+  .rules-text p {
+    font-size: 0.85rem;
+  }
+  .rules-text li {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .structure {
+    padding: 0.5rem;
+  }
+  .heading {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  .timeline-tabs {
+    margin-bottom: 1rem;
+  }
+  .timeline-tab {
+    font-size: 1.5rem;
+  }
+  .accordion-panel {
+    margin: 0.5rem;
+  }
+  .accordion-header {
+    padding: 0.3vh 1vh;
+  }
+  .accordion-title {
+    font-size: 12px;
+  }
+  .accordion-content li {
+    font-size: 11px;
+    margin: 4px 0;
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .accordion-panel {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}

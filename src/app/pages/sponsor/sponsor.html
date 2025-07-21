@@ -1,0 +1,193 @@
+<div class="sponsor">
+  <div class="heading">
+    <h1>Our Partners</h1>
+  </div>
+  
+  <div class="tab-buttons">
+    <button 
+      class="tab-button" 
+      [class.active]="activeTab === 'sponsors'"
+      (click)="loadSponsors()">
+      Sponsors
+    </button>
+    <button 
+      class="tab-button" 
+      [class.active]="activeTab === 'associates'"
+      (click)="loadAssociates()">
+      Associates
+    </button>
+    <button 
+      class="tab-button" 
+      [class.active]="activeTab === 'outreach'"
+      (click)="loadOutreachPartners()">
+      Outreach Partners
+    </button>
+  </div>
+
+  <!-- Loading and Error States -->
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <!-- Sponsors Content -->
+  <div *ngIf="activeTab === 'sponsors' && !loading && !error" class="content">
+    <div class="associate-section">
+      <div class="sponsor-rows">
+        <!-- First Row -->
+        <div class="sponsor-row">
+          <div 
+            *ngFor="let sponsor of getFirstRowSponsors()" 
+            class="card sponsor-card"
+            (click)="openLink(sponsor.link)"
+            (mouseenter)="onMouseEnter($event)"
+            (mousemove)="onMouseMove($event)"
+            (mouseleave)="onMouseLeave($event)">
+            <div class="title sponsor-title">{{ sponsor.title }}</div>
+            <div class="img-container sponsor-img-container">
+              <img [src]="sponsor.image" [alt]="sponsor.title" class="sponsor-img" draggable="false">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Second Row -->
+        <div class="sponsor-row" *ngIf="getSecondRowSponsors().length > 0">
+          <div 
+            *ngFor="let sponsor of getSecondRowSponsors()" 
+            class="card sponsor-card asso-card"
+            (click)="openLink(sponsor.link)"
+            (mouseenter)="onMouseEnter($event)"
+            (mousemove)="onMouseMove($event)"
+            (mouseleave)="onMouseLeave($event)">
+            <div class="title sponsor-title">{{ sponsor.title }}</div>
+            <div class="img-container sponsor-img-container">
+              <img [src]="sponsor.image" [alt]="sponsor.title" class="sponsor-img" draggable="false">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Third Row -->
+        <div class="sponsor-row" *ngIf="getThirdRowSponsors().length > 0">
+          <div 
+            *ngFor="let sponsor of getThirdRowSponsors()" 
+            class="card sponsor-card"
+            (click)="openLink(sponsor.link)"
+            (mouseenter)="onMouseEnter($event)"
+            (mousemove)="onMouseMove($event)"
+            (mouseleave)="onMouseLeave($event)">
+            <div class="title sponsor-title">{{ sponsor.title }}</div>
+            <div class="img-container sponsor-img-container">
+              <img [src]="sponsor.image" [alt]="sponsor.title" class="sponsor-img" draggable="false">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Sponsor Testimonials Section -->
+    <div class="testimonial-section" *ngIf="sponsorTestimonials.length">
+      <h2 class="opportunities-heading">Sponsors Testimonials</h2>
+      <app-animated-testimonials
+        [testimonials]="formattedSponsorTestimonials"
+        [autoplay]="true">
+      </app-animated-testimonials>
+    </div>
+    
+    <!-- Sponsorship Opportunities Section -->
+    <div class="opportunities-section">
+      <h2 class="opportunities-heading">FOR SPONSORSHIP OPPORTUNITIES</h2>
+      <div class="contact-cards">
+
+        <div class="contact-card">
+          <div class="contact-info">
+            <div class="contact-name">
+              <i class="fas fa-user"></i>
+              Kartik Padiya
+            </div>
+            <div class="contact-email">
+              <i class="fas fa-envelope"></i>
+              <a href="mailto:kartikpadiya@ecell.in">kartikpadiya&#64;ecell.in</a>
+            </div>
+            <div class="contact-phone">
+              <i class="fas fa-phone"></i>
+              <a href="tel:7020782116">+91 7020782116</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-info">
+            <div class="contact-name">
+              <i class="fas fa-user"></i>
+              Mridul Mantri
+            </div>
+            <div class="contact-email">
+              <i class="fas fa-envelope"></i>
+              <a href="mailto:mridul@ecell.in">mridul&#64;ecell.in</a>
+            </div>
+            <div class="contact-phone">
+              <i class="fas fa-phone"></i>
+              <a href="tel:6375028382">+91 6375028382</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-info">
+            <div class="contact-name">
+              <i class="fas fa-user"></i>
+              Ved Vijay Patil
+            </div>
+            <div class="contact-email">
+              <i class="fas fa-envelope"></i>
+              <a href="mailto:ved@ecell.in">ved&#64;ecell.in</a>
+            </div>
+            <div class="contact-phone">
+              <i class="fas fa-phone"></i>
+              <a href="tel:8459403210">+91 8459403210</a>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- Associates Content -->
+  <div *ngIf="activeTab === 'associates' && !loading && !error" class="content">
+    <div class="associate-section" *ngFor="let type of ['venture', 'incubation']">
+      <h2 class="section-title">{{ getTypeDisplayName(type) }}</h2>
+      <div class="cards asso-cards">
+        <div 
+          *ngFor="let associate of getAssociatesByType(type)" 
+          class="card"
+          (click)="openLink(associate.link)"
+          (mouseenter)="onMouseEnter($event)"
+          (mousemove)="onMouseMove($event)"
+          (mouseleave)="onMouseLeave($event)">
+          <div class="img-container">
+            <img [src]="associate.image" [alt]="associate.type" class="sponsor-img" draggable="false">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Outreach Partners Content -->
+  <div *ngIf="activeTab === 'outreach' && !loading && !error" class="content">
+    <div class="associate-section" *ngFor="let type of ['government', 'ecosystem', 'media']">
+      <h2 class="section-title">{{ getTypeDisplayName(type) }}</h2>
+      <div class="cards asso-cards">
+        <div 
+          *ngFor="let partner of getOutreachPartnersByType(type)" 
+          class="card"
+          (click)="openLink(partner.link)"
+          (mouseenter)="onMouseEnter($event)"
+          (mousemove)="onMouseMove($event)"
+          (mouseleave)="onMouseLeave($event)">
+          <div class="img-container">
+            <img [src]="partner.image" [alt]="partner.type" class="sponsor-img" draggable="false">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

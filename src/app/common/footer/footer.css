@@ -1,0 +1,260 @@
+:host {
+    --color: white;
+    --quick-link-color: #4b96f9;
+    font-family: 'Poppins';
+  }
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 400;
+  }
+
+  .hlo h4:hover{
+    color: #006eff;
+  }
+  
+  h3 {
+    font-weight: 800;
+  }
+
+  .row-3 h4{
+    font-weight: 700;
+    margin: 6.5px;
+  }
+  
+  footer {
+    background-color: black;
+    border-top: 1.4px solid white;
+  
+    .container-xxl {
+      position: relative;
+      color: var(--color);
+      padding: 50px 100px;
+  
+      display: flex;
+      column-gap: 1em;
+  
+      .row-1 {
+        margin-right: auto;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+
+  a,
+  a:hover {
+    text-decoration: none;
+  }
+
+  .row-1 img {
+    width: 300px;
+  }
+  
+  .row-1 .info {
+    padding: 20px 0px 20px 20px;
+    font-weight: 500;
+  
+    span {
+      font-weight: 700;
+      font-size: 1.5em;
+      font-family: 'Thunder', 'Lilita One';
+      letter-spacing: 0.1em;
+    }
+  }
+
+  .info h4{
+    margin-top: 10px;
+    font-weight: 400;
+    font-size: 1em;
+    font-family: 'Poppins';
+    
+  }
+  
+  .row-3 address {
+    line-height: 25px;
+    color: var(--color);
+    width: 150px;
+  }
+
+  .row-3 h3 {
+    margin-bottom: 10px;
+  }
+  
+  .row-3 a p {
+    margin: 5px auto;
+    color: #2D87FF;
+  }
+
+  ul.socials {
+    list-style-type: none;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    padding: 0;
+    margin-top: 10px;
+    font-size: 2rem;
+  }
+  
+  a[href^="mailto:"] {
+    color: var(--color);
+  }
+  
+  h4 {
+    color: var(--quick-link-color);
+    margin-bottom: 5px;
+  }
+  
+  .foot-2 h5 {
+    padding: 10px 0px 0px 0px;
+    text-align: justify;
+    width: 300px;
+  }
+  
+  .row-3 {
+    display: flex;
+    margin: 0vh 4vw;
+  }
+
+  .quick-links{
+    margin: 0vh 2vw;
+  }
+
+  .quick-links h3{
+    font-size: 1.2vw;
+  }
+  
+  .socials {
+    text-align-last: right;
+  }
+
+  .socials fa-icon {
+    color: var(--quick-link-color);
+  }
+  
+  @media only screen and (max-width: 1000px) {
+    .foot {
+      display: block;
+      padding: 0px 0px;
+      margin-left: 15%;
+    }
+    .foot-2 {
+      display: block;
+      text-align-last: center;
+      width: auto !important;
+    }
+    .foot-2 h5 {
+      width: auto !important;
+    }
+    .foot-2 h6 {
+      width: auto !important;
+    }
+    .row-1 {
+      margin-left: -5%;
+    }
+    .row-2 {
+      text-align: -webkit-center;
+    }
+    .socials {
+      text-align: -webkit-center;
+      padding: 10px 0px;
+    }
+    .socials h4 {
+      text-align-last: center;
+    }
+    .socials h5 {
+      text-align: -webkit-center;
+      padding: 10px 0px;
+    }
+  
+    .container-xxl {
+      overflow: hidden;
+    }
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .phone {
+      display: none;
+    }
+    .foot-2 {
+      padding: 0px;
+      display: flex !important;
+      width: 100%;
+    }
+    .row-2 {
+      padding: 20px 20px;
+      text-align-last: left;
+    }
+    .socials {
+      padding: 20px 10px;
+      width: 100%;
+      text-align-last: right !important;
+    }
+    .socials h4 {
+      text-align-last: right !important;
+    }
+    h4 {
+      margin: 0px;
+      /* font-size: 2000px; */
+    }
+    .fa-brands {
+      width: 5px;
+      padding: 5px 15px;
+    }
+
+    .social {
+      display: none;
+    }
+    .social2 {
+      display: flex !important;
+      justify-content: space-around;
+      color: rgb(245, 238, 238);
+    }
+    a {
+      color: rgb(244, 239, 239);
+    }
+    .row-1 h4 {
+      text-align: center !important;
+      padding: 15px;
+    }
+  
+    footer .container-xxl {
+      padding-inline: 0;
+      justify-content: center;
+    }
+  
+    .row-1 {
+      margin: 0 !important;
+    }
+  }
+  
+  @media only screen and (max-width: 350px) {
+
+    .foot-2 {
+      display: flex !important;
+      flex-direction: column;
+    }
+  
+    .row-1 h4 {
+      padding: 0px 0px 10px 20px;
+      text-align: justify;
+      max-width: 80vw;
+
+    }
+    .row-1 h5 {
+      padding: 0px 0px 0px 20px;
+      text-align: justify;
+      max-width: 80vw;
+    }
+    .row-1 h6 {
+      padding: 0px 0px 0px 20px;
+      text-align: justify;
+      max-width: 80vw;
+    }
+  }
+  
+  img {
+    max-width: 80vw;
+  }

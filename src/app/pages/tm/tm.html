@@ -1,0 +1,33 @@
+<div class="page-wrapper">
+    <div class="section-timeline">
+      <div class="container">
+        <div class="timeline_component" #timelineComponent>
+          <div class="timeline_progress">
+            <div class="timeline_progress-bar" [style.height.px]="progressHeight"></div>
+          </div>
+          <ng-container *ngFor="let item of timelineItems">
+            <div class="timeline_item">
+              <div class="timeline_left">
+                <div class="timeline_date-block">
+                  <div class="timeline_date-text">{{ item.date }}</div>
+                  <div class="timeline_title">{{ item.title }}</div>
+                </div>
+              </div>
+              <div class="timeline_centre">
+                <div class="timeline_circle"></div>
+              </div>
+              <div class="timeline_right">
+                <div [ngClass]="item.marginClass">
+                  <div class="timeline_text">
+                    {{ item.text }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <div class="overlay-fade-top"></div>
+          <div class="overlay-fade-bottom"></div>
+        </div>
+      </div>
+    </div>
+  </div>

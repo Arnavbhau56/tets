@@ -1,0 +1,12 @@
+<div class="gallery-container">
+  <div class="gallery-content">
+    <div class="gallery-slider" #slider>
+      <div class="gallery-image" *ngFor="let item of gallery; let i = index" [class.center]="i % (gallery.length / 2) === getCenterIndex()">
+        <img [src]="item.image" alt="Gallery image" draggable="false"/>
+      </div>
+    </div>
+    <div class="gallery-text-gradient">
+      <div class="gallery-text">{{ currentText }}</div>
+    </div>
+  </div>
+</div>

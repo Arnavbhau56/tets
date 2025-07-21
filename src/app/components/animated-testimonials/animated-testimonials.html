@@ -1,0 +1,59 @@
+<div class="testimonials-container">
+  <div class="testimonials-grid">
+    <div class="images-section">
+      <div class="images-container">
+        <div 
+          *ngFor="let testimonial of testimonials; let index = index" 
+          class="testimonial-image"
+          [ngStyle]="getImageStyle(index)"
+          [class.active]="isActive(index)"
+        >
+          <img
+            [src]="testimonial.src"
+            [alt]="testimonial.name"
+            draggable="false"
+            class="testimonial-img"
+          />
+        </div>
+      </div>
+    </div>
+    
+    <div class="content-section">
+      <div class="testimonial-content">
+        <h3 class="testimonial-name">
+          {{ testimonials[active].name || 'Anonymous' }}
+        </h3>
+        <div class="testimonial-quote">
+          <span 
+            *ngFor="let word of testimonials[active]?.quote?.split(' '); let wordIndex = index"
+            class="quote-word"
+            [style.animation-delay]="(wordIndex * 0.02) + 's'"
+          >
+            {{ word }}&nbsp;
+          </span>
+        </div>
+      </div>
+      
+      <div class="navigation-buttons">
+        <button
+          (click)="handlePrev()"
+          class="nav-button prev-button"
+          aria-label="Previous testimonial"
+        >
+          <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <button
+          (click)="handleNext()"
+          class="nav-button next-button"
+          aria-label="Next testimonial"
+        >
+          <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 

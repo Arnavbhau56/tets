@@ -1,0 +1,487 @@
+<div class="dashboard-container" appScrollTop>
+    <div class="dashboard-container">
+        <div class="top-section">
+          <!-- Left Side -->
+          <div class="left-content">
+            <div class="welcome-heading">
+            <h1>WELCOME</h1>
+            </div>
+            <p class="welcome-subtext">
+              Welcome, <span class="highlight">{{ currentUser?.first_name }}</span>!
+              Great to have you with us on your Eureka! journey. 
+              <br>
+              Your team’s Eureka ID is <span class="highlight">{{ currentUser?.eureka_id }}</span>.
+              <br>
+              Kickstart your experience by submitting your Venture Plan or inviting your team members from the Idea Submission section.
+              Keep an eye on your Dashboard to track milestones, updates, and everything you need to stay ahead in the competition.
+              <br>
+              Wishing you an inspiring and impactful journey ahead!
+            </p>
+            <img src="assets/images/down.png" alt="Down Arrow" class="down-arrow" (click)="scrollToSubmissions()" draggable="false"/>
+          </div>
+      
+          <!-- Right Side -->
+          <div class="right-content">
+            <div class="stats-container">
+              <div class="stat-box">
+                <p class="stat-label"><strong class="s">T</strong>otal <strong class="s">M</strong>embers</p>
+                <div class="line"></div>
+                <p class="stat-number">{{ getTotalMembers() }}</p>
+              </div>
+              <div class="stat-box">
+                <p class="stat-label"><strong class="s">I</strong>deas <strong class="s">S</strong>ubmitted</p>
+                <div class="line"></div>
+                <p class="stat-number">{{ getTotalIdeas() }}</p>
+              </div>
+              <div class="stat-box">
+                <p class="stat-label"><strong class="s">P</strong>ending <strong class="s">Q</strong>uestionnaire</p>
+                <div class="line"></div>
+                <p class="stat-number">{{ getPendingActions() }}</p>
+              </div>
+            </div>
+      
+            <div class="update-box">
+              <p class="update-title">Instructions</p>
+              <div class="line update-line"></div>
+              <ul class="update-list" *ngIf="updates && updates.length > 0; else noUpdates">
+                <li *ngFor="let update of updates | slice:0:5" class="update-item">
+                  <div class="update-content">{{ update.update }}</div>
+                </li>
+              </ul>
+              <ng-template #noUpdates>
+                <p class="update-content">No updates available at the moment.</p>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      
+  
+    <div class="submission-section" id="submissions">
+           <div class="submission-title" 
+           [class.active]="activeSection === 'team'"
+           (click)="showTeamSection()">Team Information</div>
+      <div class="vertical-line"></div>
+      <div class="submission-title" 
+      [class.active]="activeSection === 'submissions'"
+      (click)="showSubmissionSection()">Your Submissions</div>
+
+    </div>
+  
+    <div class="submission-cards" *ngIf="showSubmissions">
+      <!-- Idea Cards -->
+      <div class="card" *ngFor="let idea of ideasData">
+        <h3>Your Submissions</h3>
+        <img src="assets/images/bulb.png" alt="Bulb" class="bulb-icon" draggable="false"/>
+        <p><strong>Venture Name:</strong> {{ idea.startup_name }}</p>
+        <p><strong>Track:</strong> {{ idea.track }}</p>
+        <p><strong>Status:</strong> {{ getIdeaStatus(idea) }}</p>
+  
+        <div class="button-group">
+          <button class="btn" (click)="showIdeaDetails(idea)">View Idea</button>
+          <button class="btn" (click)="deleteIdea(idea)">Delete Idea</button>
+          <button class="btn" (click)="editIdea(idea)">Edit Idea</button>
+          <button class="btn imp" (click)="editQuestionnaire(idea)">Edit Questionnaire</button>
+        </div>
+      </div>
+  
+      <div class="card" (click)="showAddSubmission()">
+        <h3>Add Submission</h3>
+        <!-- Additional form or button can be placed here -->
+      </div>
+    </div>
+
+    <!-- Team Information Section -->
+    <div class="team-section" *ngIf="showTeamInfo">
+      <div class="submission-cards">
+        <!-- Team Member Cards -->
+        <div class="card" *ngFor="let member of userData">
+          <h3>Team Member</h3>
+          <img src="assets/images/admin.png" alt="Admin" class="bulb-icon" draggable="false"/>
+          <p><strong>Name:</strong> {{ getMemberName(member) }}</p>
+          <p><strong>Email ID:</strong> {{ member.email }}</p>
+          <p><strong>Contact:</strong> {{ getMemberContact(member) }}</p>
+  
+          <div class="button-group">
+            <button class="btn" (click)="showMemberDetails(member)">Member Details</button>
+            <button class="btn" (click)="editMember(member)">Edit Member</button>
+            <button class="btn" *ngIf="currentUser?.is_leader" (click)="deleteMember(member)">Delete Member</button>
+          </div>
+        </div>
+  
+        <div class="card" (click)="showAddTeamMember()">
+          <h3>Add Team Member</h3>
+          <!-- Additional form or button can be placed here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Member Modal -->
+  <div class="modal-overlay" *ngIf="showMemberModal">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ isEditingMember ? 'Edit Member' : 'Member Details' }}</h2>
+        <button class="close-btn" (click)="closeMemberModal()">×</button>
+      </div>
+      
+      <div class="modal-body">
+        <div *ngIf="!isEditingMember && selectedMember">
+          <div class="detail-row">
+            <label>Email:</label>
+            <span>{{ selectedMember.email }}</span>
+          </div>
+          <div class="detail-row">
+            <label>First Name:</label>
+            <span>{{ selectedMember.first_name }}</span>
+          </div>
+          <div class="detail-row">
+            <label>Last Name:</label>
+            <span>{{ selectedMember.last_name }}</span>
+          </div>
+          <div class="detail-row">
+            <label>Country Code:</label>
+            <span>{{ selectedMember.country_code }}</span>
+          </div>
+          <div class="detail-row">
+            <label>Contact Number:</label>
+            <span>{{ selectedMember.contact_number }}</span>
+          </div>
+          <div class="detail-row">
+            <label>Country:</label>
+            <span>{{ selectedMember.country }}</span>
+          </div>
+          <div class="detail-row">
+            <label>State:</label>
+            <span>{{ selectedMember.state }}</span>
+          </div>
+          <div class="detail-row">
+            <label>City:</label>
+            <span>{{ selectedMember.city }}</span>
+          </div>
+          <div class="detail-row">
+            <label>Pin Code:</label>
+            <span>{{ selectedMember.pin_code }}</span>
+          </div>
+          <div class="detail-row">
+            <label>Professional Status:</label>
+            <span>{{ selectedMember.current_professional_status }}</span>
+          </div>
+        </div>
+
+        <form *ngIf="isEditingMember" class="edit-form">
+          <div class="form-group">
+            <label>Email:</label>
+            <input type="email" [(ngModel)]="editMemberData.email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label>First Name:</label>
+            <input type="text" [(ngModel)]="editMemberData.first_name" name="first_name" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name:</label>
+            <input type="text" [(ngModel)]="editMemberData.last_name" name="last_name" required>
+          </div>
+          <div class="form-group">
+            <label>Country Code:</label>
+            <select [(ngModel)]="editMemberData.country_code" name="country_code" required>
+              <option *ngFor="let country of countries" [value]="country.countryCallingCode">
+                {{ country.flag }} {{ country.countryNameEn }} (+{{ country.countryCallingCode }})
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Contact Number:</label>
+            <input type="number" [(ngModel)]="editMemberData.contact_number" name="contact_number" required>
+          </div>
+          <div class="form-group">
+            <label>Country:</label>
+            <input type="text" [(ngModel)]="editMemberData.country" name="country" required>
+          </div>
+          <div class="form-group">
+            <label>State:</label>
+            <select [(ngModel)]="editMemberData.state" name="state" required>
+              <option *ngFor="let state of stateOptions" [value]="state.value">
+                {{ state.viewValue }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>City:</label>
+            <input type="text" [(ngModel)]="editMemberData.city" name="city" required>
+          </div>
+          <div class="form-group">
+            <label>Pin Code:</label>
+            <input type="text" [(ngModel)]="editMemberData.pin_code" name="pin_code" required>
+          </div>
+          <div class="form-group">
+            <label>Professional Status:</label>
+            <select [(ngModel)]="editMemberData.current_professional_status" name="current_professional_status" required>
+              <option *ngFor="let status of statusOptions" [value]="status.value">
+                {{ status.viewValue }}
+              </option>
+            </select>
+          </div>
+          
+          <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" (click)="closeMemberModal()">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="updateMember()">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Idea Modal -->
+  <div class="modal-overlay" *ngIf="showIdeaModal">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ isEditingIdea ? 'Edit Idea' : 'Idea Details' }}</h2>
+        <button class="close-btn" (click)="closeIdeaModal()">×</button>
+      </div>
+      
+      <div class="modal-body">
+        <div *ngIf="!isEditingIdea && selectedIdea">
+          <div class="detail-row">
+            <label>Startup Name:</label>
+            <span>{{ selectedIdea.startup_name }}</span>
+          </div>
+          <div class="detail-row">
+            <label>Sector 1:</label>
+            <span>{{ selectedIdea.sector_1 }}</span>
+          </div>
+          <div class="detail-row">
+            <label>Sector 2:</label>
+            <span>{{ selectedIdea.sector_2 || 'Not provided' }}</span>
+          </div>
+          <div class="detail-row">
+            <label>Sector 3:</label>
+            <span>{{ selectedIdea.sector_3 || 'Not provided' }}</span>
+          </div>
+          <div class="detail-row">
+            <label>Idea Description:</label>
+            <span>{{ selectedIdea.idea_description }}</span>
+          </div>
+          <div class="detail-row">
+            <label>Track:</label>
+            <span>{{ selectedIdea.track }}</span>
+          </div>
+          <div class="detail-row">
+            <label>Website URL:</label>
+            <span>{{ selectedIdea.website_url || 'Not provided' }}</span>
+          </div>
+        </div>
+
+        <form *ngIf="isEditingIdea" class="edit-form">
+          <div class="form-group">
+            <label>Startup Name:</label>
+            <input type="text" [(ngModel)]="editIdeaData.startup_name" name="startup_name" required>
+          </div>
+          <div class="form-group">
+            <label>Sector 1:</label>
+            <select [(ngModel)]="editIdeaData.sector_1" name="sector_1" required>
+              <option *ngFor="let sector of sectorOptions" [value]="sector.value">
+                {{ sector.viewValue }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Sector 2:</label>
+            <select [(ngModel)]="editIdeaData.sector_2" name="sector_2" required>
+              <option *ngFor="let sector of sectorOptions" [value]="sector.value">
+                {{ sector.viewValue }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Sector 3:</label>
+            <select [(ngModel)]="editIdeaData.sector_3" name="sector_3" required>
+              <option *ngFor="let sector of sectorOptions" [value]="sector.value">
+                {{ sector.viewValue }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Idea Description:</label>
+            <textarea [(ngModel)]="editIdeaData.idea_description" name="idea_description" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Track:</label>
+            <select [(ngModel)]="editIdeaData.track" name="track" required>
+              <option *ngFor="let track of trackOptions" [value]="track.value">
+                {{ track.viewValue }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Website URL:</label>
+            <input type="url" [(ngModel)]="editIdeaData.website_url" name="website_url" pattern="https?://.*">
+          </div>
+          
+          <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" (click)="closeIdeaModal()">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="updateIdea()">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Submission Modal -->
+  <div class="modal-overlay" *ngIf="showAddSubmissionModal">
+    <div class="modal-content add-submission-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Add New Submission</h2>
+        <button class="close-btn" (click)="closeAddSubmissionModal()">×</button>
+      </div>
+      
+      <div class="modal-body">
+        <form class="edit-form" (ngSubmit)="submitAddSubmission()">
+          <div class="form-group">
+            <label for="startupName">Startup Name <span class="required">*</span></label>
+            <input type="text" id="startupName" name="startupName" [(ngModel)]="addSubmissionData.startup_name" required>
+            <div class="error-message" *ngIf="addSubmissionSubmitted && !addSubmissionData.startup_name">This field is required</div>
+          </div>
+
+          <div class="form-group">
+            <label for="dpiitRegistered">Is your idea DPIIT registered? <span class="required">*</span></label>
+            <select id="dpiitRegistered" name="dpiitRegistered" [(ngModel)]="addSubmissionData.dpiit_registered" (change)="onDpiitChange()" required>
+              <option value="">Select Option</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <div class="error-message" *ngIf="addSubmissionSubmitted && !addSubmissionData.dpiit_registered">This field is required</div>
+          </div>
+
+          <div class="form-group" *ngIf="addSubmissionData.dpiit_registered === 'yes'">
+            <label for="dpiitNumber">DPIIT Recognition Number <span class="required">*</span></label>
+            <input type="text" id="dpiitNumber" name="dpiitNumber" [(ngModel)]="addSubmissionData.dpiit_recognition_number" required>
+            <div class="error-message" *ngIf="addSubmissionSubmitted && !addSubmissionData.dpiit_recognition_number">This field is required</div>
+          </div>
+
+          <div class="form-group" *ngIf="addSubmissionData.dpiit_registered === 'no'">
+            <label for="otherOrganization">Registered under any other organization? <span class="required">*</span></label>
+            <select id="otherOrganization" name="otherOrganization" [(ngModel)]="addSubmissionData.any_other_organization" (change)="onOtherOrgChange()" required>
+              <option value="">Select Option</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <div class="error-message" *ngIf="addSubmissionSubmitted && !addSubmissionData.any_other_organization">This field is required</div>
+          </div>
+
+          <div class="form-row" *ngIf="addSubmissionData.any_other_organization === 'yes'">
+            <div class="form-group">
+              <label for="orgName">Name of the Body <span class="required">*</span></label>
+              <input type="text" id="orgName" name="orgName" [(ngModel)]="addSubmissionData.name_of_organization" required>
+              <div class="error-message" *ngIf="addSubmissionSubmitted && !addSubmissionData.name_of_organization">This field is required</div>
+            </div>
+            <div class="form-group">
+              <label for="orgRegNumber">Registration Number <span class="required">*</span></label>
+              <input type="text" id="orgRegNumber" name="orgRegNumber" [(ngModel)]="addSubmissionData.registration_number_of_organization" required>
+              <div class="error-message" *ngIf="addSubmissionSubmitted && !addSubmissionData.registration_number_of_organization">This field is required</div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="sector1">Sector 1 <span class="required">*</span></label>
+              <select id="sector1" name="sector1" [(ngModel)]="addSubmissionData.sector_1" required>
+                <option value="">Select Sector</option>
+                <option *ngFor="let sector of sectorOptions" [value]="sector.value">{{ sector.viewValue }}</option>
+              </select>
+              <div class="error-message" *ngIf="addSubmissionSubmitted && !addSubmissionData.sector_1">This field is required</div>
+            </div>
+            <div class="form-group">
+              <label for="sector2">Sector 2 <span class="required">*</span></label>
+              <select id="sector2" name="sector2" [(ngModel)]="addSubmissionData.sector_2" required>
+                <option value="">Select Sector</option>
+                <option *ngFor="let sector of sectorOptions" [value]="sector.value">{{ sector.viewValue }}</option>
+              </select>
+              <div class="error-message" *ngIf="addSubmissionSubmitted && !addSubmissionData.sector_2">This field is required</div>
+            </div>
+            <div class="form-group">
+              <label for="sector3">Sector 3 <span class="required">*</span></label>
+              <select id="sector3" name="sector3" [(ngModel)]="addSubmissionData.sector_3" required>
+                <option value="">Select Sector</option>
+                <option *ngFor="let sector of sectorOptions" [value]="sector.value">{{ sector.viewValue }}</option>
+              </select>
+              <div class="error-message" *ngIf="addSubmissionSubmitted && !addSubmissionData.sector_3">This field is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="ideaDescription">Brief Idea Description <span class="required">*</span></label>
+            <textarea id="ideaDescription" name="ideaDescription" [(ngModel)]="addSubmissionData.idea_description" rows="4" required></textarea>
+            <div class="error-message" *ngIf="addSubmissionSubmitted && !addSubmissionData.idea_description">This field is required</div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="track">Track <span class="required">*</span></label>
+              <select id="track" name="track" [(ngModel)]="addSubmissionData.track" required>
+                <option value="">Select Track</option>
+                <option *ngFor="let track of trackOptions" [value]="track.value">{{ track.viewValue }}</option>
+              </select>
+              <div class="error-message" *ngIf="addSubmissionSubmitted && !addSubmissionData.track">This field is required</div>
+            </div>
+            <div class="form-group">
+              <label for="websiteUrl">Website URL (optional)</label>
+              <input type="url" id="websiteUrl" name="websiteUrl" [(ngModel)]="addSubmissionData.website_url" pattern="https?://.*">
+            </div>
+          </div>
+          
+          <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" (click)="closeAddSubmissionModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Team Member Modal -->
+  <div class="modal-overlay" *ngIf="showAddTeamMemberModal">
+    <div class="modal-content add-team-member-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Add Team Member</h2>
+        <button class="close-btn" (click)="closeAddTeamMemberModal()">×</button>
+      </div>
+      
+      <div class="modal-body">
+        <form class="edit-form" (ngSubmit)="submitTeamMember()">
+          <div class="form-group">
+            <label for="teamMemberEmail">Email <span class="required">*</span></label>
+            <input 
+              type="email" 
+              id="teamMemberEmail" 
+              name="teamMemberEmail" 
+              [(ngModel)]="addTeamMemberFormData.email" 
+              placeholder="Enter team member's email"
+              required
+            >
+            <div class="form-hint">Team invite will be sent to this email</div>
+            <div class="error-message" *ngIf="addTeamMemberSubmitted && !addTeamMemberFormData.email">This field is required</div>
+          </div>
+
+          <div class="form-group">
+            <label for="teamMemberFirstName">First Name <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="teamMemberFirstName" 
+              name="teamMemberFirstName" 
+              [(ngModel)]="addTeamMemberFormData.first_name" 
+              placeholder="Enter team member's first name"
+              required
+            >
+            <div class="error-message" *ngIf="addTeamMemberSubmitted && !addTeamMemberFormData.first_name">This field is required</div>
+          </div>
+          
+          <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" (click)="closeAddTeamMemberModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Send Invite</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  

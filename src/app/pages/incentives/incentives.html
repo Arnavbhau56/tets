@@ -1,0 +1,32 @@
+<div class="incentives">
+    <div class="heading">
+        <h1>INCENTIVES</h1>
+    </div>
+
+    <div class="cards" *ngIf="!loading && !error">
+        <div class="card" *ngFor="let incentive of incentives" (click)="openLink(incentive.link)">
+            <div class="img">
+                <img [src]="incentive.image" [alt]="incentive.title + ' image'"
+                    draggable="false" class="incentive-img">
+            </div>
+
+            <div class="pad">
+                <div class="title">
+                    <h1>{{ incentive.title }}</h1>
+                </div>
+
+                <div class="info">
+                    <p>{{ incentive.info }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading" *ngIf="loading">
+        <p>Loading incentives...</p>
+    </div>
+
+    <div class="error" *ngIf="error">
+        <p>Error loading incentives. Please try again later.</p>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+.sidebar {
+    position: fixed;
+    top: 30%;
+    right: 0%;
+    background-color: #6fadff;
+    padding: 10px 8px;
+    border-radius: 8px 0 0 8px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    z-index: 10000;
+  }
+  
+  .sidebar a fa-icon {
+    font-size: 22px;
+    color: black;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .sidebar a:hover fa-icon {
+    color: #fff;
+  }
+  
+  @media (max-width: 800px) {
+    .sidebar {
+        display: none; 
+    }
+  }

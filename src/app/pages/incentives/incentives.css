@@ -1,0 +1,205 @@
+.incentives{
+    padding: 2rem;
+    background-color: black;
+    min-height: 100vh;
+    padding-top: 110px;
+}
+
+.heading{
+    font-family: "Thunder", "Lilita One";
+    color: white;
+    font-size: 4rem;
+    text-align: center;
+    letter-spacing: 3px;
+    margin-bottom: 40px;
+}
+
+.cards{
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.card{
+    display: flex;
+    background-color: #001A3C;
+    color: white;
+    border: 1px solid white;
+    flex-direction: column;
+    width: 240px;
+    height: 450px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.pad{
+    padding: 0 0.2rem;
+}
+
+.title{
+    font-family: 'Neue Montreal';
+    margin-bottom: 0.3rem;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+}
+
+.img{
+    width: 240px;
+    height: 240px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.img:hover{
+    transform: scale(1.03);
+    box-shadow: 0px 0px 10px inset #000;
+}
+
+.incentive-img{
+    width: 90%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.info{
+    font-family: Poppins;
+    font-size: 14px;
+}
+
+.card:hover{
+    box-shadow: 10px 14px 0px #fff;
+    transform: translate(-4px, -4px); 
+}
+
+.loading, .error {
+    text-align: center;
+    color: white;
+    font-family: "Thunder", 'Lilita One';
+    font-size: 1.5rem;
+    margin-top: 2rem;
+}
+
+.error {
+    color: #ff6b6b;
+}
+
+/* Comprehensive Responsive Design for Incentives Page */
+@media (max-width: 1200px) {
+  .incentives {
+    padding: 1.5rem;
+    padding-top: 90px;
+  }
+  
+  .heading {
+    font-size: 3.5rem;
+    margin-bottom: 30px;
+  }
+  
+  .cards {
+    gap: 1.8rem;
+  }
+  
+  .card {
+    width: 240px;
+    height: 420px;
+    padding: 1.1rem;
+  }
+  
+  .title {
+    font-size: 0.6rem;
+  }
+  
+  .img {
+    width: 240px;
+    height: 240px;
+  }
+  
+  .info {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 992px) {
+  .incentives {
+    padding: 1.2rem;
+    padding-top: 90px;
+  }
+  
+  .heading {
+    font-size: 3rem;
+    margin-bottom: 25px;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .incentives {
+    padding: 1rem;
+    padding-top: 90px;
+  }
+  
+  .heading {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+  }
+  
+  .loading, .error {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .incentives {
+    padding: 0.8rem;
+    padding-top: 90px;
+  }
+  
+  .heading {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    letter-spacing: 1.5px;
+  }
+  
+  .loading, .error {
+    font-size: 1.2rem;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+  .incentives {
+    padding: 0.5rem;
+  }
+  
+  .heading {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .info {
+    font-size: 8px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .card {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .incentive-img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}

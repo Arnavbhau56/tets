@@ -1,0 +1,118 @@
+<div class="content" id="vanta-background" appScrollTop>
+  <img src="assets/images/eureka.png" alt="logo" class="logo" draggable="false">
+
+  <div class="text">
+    <span class="highlight">ASIA'S LARGEST</span> BUSINESS MODEL COMPETITION
+    <br>
+    TOTAL CASH PRIZES WORTH <span class="highlight">INR 26 LAKHS+</span>
+    <br>
+    CHANCE TO WIN A SPONSORED TRIP TO DUBAI
+  </div>
+
+  <div class="buttons" *ngIf="!isLoggedIn">
+    <button class="btn login" (click)="login()">
+      LOGIN
+      <!-- <img src="assets/images/login.png" alt="login icon" style="height: 1em; margin-left: 0.5em; vertical-align: middle;" /> -->
+    </button>
+    <button class="btn reg" (click)="reg()">REGISTER</button>
+  </div>
+  
+  <div class="buttons" *ngIf="isLoggedIn">
+    <button class="btn dashboard" (click)="goToDashboard()">DASHBOARD</button>
+    <button class="btn logout" (click)="logout()">LOGOUT</button>
+  </div>
+</div>
+
+<div class="what">
+  <h1 class="heading-1">WHAT IS</h1>
+  <h1 class="heading-2">EUREKA!</h1>
+
+  <p class="details">
+    Eureka! is Asia's Largest Business Model Competition aimed to fast-track the journey of an innovative idea to commercial success. Eureka! prides itself on providing a 360-degree holistic experience over a 5-month period, which offers a comprehensive experience that includes personalized mentorship, opportunities for pitching and funding, exciting cash prizes, and more. Eureka! provides a wide range of support to help participants develop their ideas and bring them to market.
+  </p>
+
+  <div class="stats" #stats>
+    <div class="stat-block">
+      <div class="stat">
+        <p class="stat-line">
+          <span class="stat-number" data-target="25000">0</span><span class='bold'>+</span> Entries
+        </p>
+      </div>
+      <hr class="line">
+      <div class="stat">
+        <p class="stat-line">
+          <span class="stat-number" data-target="300">0</span><span class='bold'>+</span> Mentors
+        </p>
+      </div>
+    </div>
+    <hr class="heavy">
+    <div class="stat-block">
+      <div class="stat">
+        <p class="stat-line">
+          <span class='bold'>INR </span> <span class="stat-number" data-target="2" data-decimal="true">0</span> <span
+            class='bold'> Cr+ </span> Worth Prizes
+        </p>
+      </div>
+      <hr class="line">
+      <div class="stat">
+        <p class="stat-line">
+          <span class="stat-number" data-target="28">0</span><span class='bold'>th </span> Edition
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="why">
+
+  <h1 class="heading-1">WHY</h1>
+  <h1 class="heading-2">EUREKA!</h1>
+
+
+  <div class="cards">
+
+    <div class="card" *ngFor="let item of dataRoadmap; let i = index">
+
+      <div class="title">
+        {{ item.title }}
+      </div>
+
+      <div class="animation">
+        <ng-lottie
+          #lottie
+          *ngIf="item.animationUrl"
+          [options]="{
+            path: item.animationUrl,
+            autoplay: false,
+            loop: false
+          }"
+          (animationCreated)="animationCreated($event, i, lottie)"
+        ></ng-lottie>
+      </div>
+
+      <div class="info">
+        {{ item.desc }}
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="structure">
+  <h1 class="heading-1 str">TIMELINE</h1>
+  <app-structure></app-structure>
+</div>
+
+<div class="gallery_testimonial">
+  <h1 class="heading-1 str">GALLERY</h1>
+  <app-galtest></app-galtest>
+</div>
+
+<div class="gallery_testimonial">
+  <h1 class="heading-1 str">TESTIMONIALS</h1>
+  <app-animated-testimonials 
+    [testimonials]="formattedTestimonials" 
+    [autoplay]="true">
+  </app-animated-testimonials>
+</div>

@@ -1,0 +1,180 @@
+/* Video Container Styles */
+.video-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.video-container.hidden {
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.opening-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Main Content Styles */
+.main-content {
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.main-content.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Ensure video container takes precedence when visible */
+.video-container:not(.hidden) * {
+  pointer-events: none;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .opening-video {
+    object-fit: contain;
+  }
+}
+
+/* Comprehensive Responsive Design for Video Page */
+@media (max-width: 1200px) {
+  .video-container {
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .opening-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 992px) {
+  .video-container {
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .opening-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 576px) {
+  .video-container {
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .opening-video {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .main-content {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-container {
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .opening-video {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .main-content {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+  .video-container {
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .opening-video {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .main-content {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .opening-video {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .video-container {
+    touch-action: manipulation;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .video-container {
+    animation: none;
+    transition: none;
+  }
+  
+  .main-content {
+    transition: none;
+  }
+}

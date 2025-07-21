@@ -1,0 +1,32 @@
+<div class="pastwin">
+    <div class="heading">
+        <h1>PAST WINNERS</h1>
+    </div>
+
+    <div class="cards" *ngIf="!loading && !error">
+        <div class="card" *ngFor="let winner of pastWinners">
+            <div class="img">
+                <img [src]="winner.logo" [alt]="winner.name + ' logo'"
+                    draggable="false" class="logo">
+            </div>
+
+            <div class="pad">
+            <div class="title">
+                <h1>{{ winner.name }}</h1>
+            </div>
+
+            <div class="info">
+                <p>{{ winner.description }}</p>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="loading" *ngIf="loading">
+        <p>Loading past winners...</p>
+    </div>
+
+    <div class="error" *ngIf="error">
+        <p>Error loading past winners. Please try again later.</p>
+    </div>
+</div>

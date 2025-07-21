@@ -1,0 +1,298 @@
+.media{
+    padding: 2rem;
+    background-color: black;
+    min-height: 100vh;
+    padding-top: 110px;
+}
+
+.heading{
+    font-family: "Thunder", 'Lilita One';
+    text-transform: uppercase;
+    color: white;
+    font-size: 4rem;
+    text-align: center;
+    letter-spacing: 3px;
+    margin-bottom: 40px;
+}
+
+.loading, .error {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 40px;
+}
+
+.cards{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.media-card {
+  background-color: #000;
+  border: 3px solid #333;
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  width: 21vw;
+  height: 32vw;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.media-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-image {
+  background-color: #fff;
+  height: 21vw;
+  width: 21vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.4s ease;
+  overflow: hidden;
+}
+
+.img {
+  width: 90%;
+  max-height: 98%;
+}
+
+.card-content {
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-info {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  font-family: 'Poppins';
+  flex-grow: 1;
+  margin: 0;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.card-paper {
+  background-color: transparent;
+  color: white;
+  padding: 1px 10px;
+  font-size: 1rem;
+  font-family: 'Poppins';
+  border: 1px solid white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.arrow-container {
+  transition: transform 0.3s ease;
+}
+
+.arrow {
+  width: 50px;
+  height: 50px;
+}
+
+.media-card:hover {
+  transform: scale(1.02);
+  border: 2px solid #fff;
+  box-shadow: 0px 0px 14px #fff;
+}
+
+.error {
+    color: #ff6b6b;
+}
+
+/* Comprehensive Responsive Design for Media Page */
+@media (max-width: 1200px) {
+  .media {
+    padding: 1.5rem;
+    padding-top: 90px;
+  }
+  
+  .heading {
+    font-size: 3.5rem;
+    margin-bottom: 30px;
+  }
+  
+  .cards {
+    gap: 30px;
+  }
+  
+  .media-card {
+    width: 350px;
+    height: 500px;
+  }
+  
+  .card-image {
+    height: 350px;
+    width: 350px;
+  }
+  
+  .card-info {
+    font-size: 1rem;
+  }
+  
+  .card-paper {
+    font-size: 0.85rem;
+  }
+  
+  .arrow {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 992px) {
+  .media {
+    padding: 1.2rem;
+    padding-top: 90px;
+  }
+  
+  .heading {
+    font-size: 3rem;
+    margin-bottom: 25px;
+  }
+  
+  .cards {
+    gap: 40px;
+  }
+  
+  .media-card {
+    width: 310px;
+    height: 480px;
+  }
+  
+  .card-image {
+    height: 310px;
+    width: 310px;
+  }
+  
+  .card-content {
+    padding: 8px 15px;
+  }
+  
+  .card-info {
+    font-size: 0.95rem;
+    margin: 0 0 15px 0;
+  }
+  
+  .card-paper {
+    font-size: 0.8rem;
+  }
+  
+  .arrow {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .media {
+    padding: 0.5rem;
+    padding-top: 90px;
+  }
+  
+  .heading {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+  
+  .cards {
+    gap: 12px;
+  }
+  
+  .media-card {
+    width: 270px;
+    height: 410px;
+  }
+  
+  .card-image {
+    height: 270px;
+    width: 270px;
+  }
+  
+  .card-content {
+    padding: 4px 8px;
+  }
+  
+  .card-info {
+    font-size: 0.9rem;
+    margin: 0 0 8px 0;
+  }
+  
+  .card-paper {
+    font-size: 0.7rem;
+    padding: 1px 5px;
+  }
+  
+  .arrow {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .loading, .error {
+    font-size: 1.1rem;
+    padding: 20px;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+  .media {
+    padding: 0.5rem;
+  }
+  
+  .heading {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .cards {
+    gap: 10px;
+  }
+  
+  .media-card {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .card-image {
+    height: 100px;
+    width: 200px;
+  }
+  
+  .card-info {
+    font-size: 0.75rem;
+    margin: 0 0 6px 0;
+  }
+  
+  .arrow {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .media-card {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .card-image img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}

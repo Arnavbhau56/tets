@@ -1,0 +1,19 @@
+
+
+<!-- Video Container -->
+<div class="video-container" [class.hidden]="!showVideo()">
+  <video 
+    #videoElement
+    class="opening-video"
+    muted
+    autoplay
+    playsinline
+    preload="auto">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+<!-- Main Content (Router Outlet) -->
+<div class="main-content" [class.hidden]="showVideo()">
+  <router-outlet></router-outlet>
+</div>

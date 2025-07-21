@@ -1,1 +1,108 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* Font Declarations */
+@font-face {
+  font-family: "Thunder";
+  src: url("../public/assets/Fonts/Thunder-MediumLC.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Thunder-Bold";
+  src: url("../public/assets/Fonts/Thunder-BoldLC.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("../public/assets/Fonts/NeueMontreal-Medium.woff2") format("woff2");
+}
+
+body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2D87FF;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ffffff;
+}
+
+/* Firefox Scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #2D87FF #000000;
+}
+
+
+
+@media (max-width: 768px) {
+    
+    /* Adjust scrollbar for mobile */
+    ::-webkit-scrollbar {
+        width: 4px;
+    }
+}
+
+
+/* Global SweetAlert2 Poppins font style */
+.swal2-popup.swal2-poppins, .swal2-popup.swal2-dark-theme {
+  font-family: 'Poppins', sans-serif !important;
+  border-radius: 16px !important;
+  border: 0.5px solid #fff !important;
+}
+
+.swal2-poppins, .swal2-dark-theme {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+/* Optional: General dark theme for SweetAlert2 popups */
+.swal2-dark-theme {
+  background: #181f2a !important;
+  color: #fff !important;
+}
+
+/* Global SweetAlert2 Width Reduction */
+.swal2-popup {
+  max-width: 400px !important;
+  width: 90% !important;
+}
+
+.swal2-popup .swal2-title {
+  font-size: 1.4rem !important;
+  line-height: 1.3 !important;
+}
+
+.swal2-popup .swal2-content {
+  font-size: 0.85rem !important;
+  line-height: 1.4 !important;
+}
+
+.swal2-popup .swal2-actions {
+  gap: 0.5rem !important;
+}
+
+.swal2-popup .swal2-confirm,
+.swal2-popup .swal2-cancel {
+  padding: 0.5rem 1rem !important;
+  font-size: 0.85rem !important;
+  font-family: 'Poppins', sans-serif !important;
+}
