@@ -38,7 +38,7 @@ export class App implements OnInit {
             if (pendingQuestionnaire) {
               Swal.fire({
                 title: 'Questionnaire Required',
-                text: 'You need to fill the questionnaire',
+                html: 'Filling the questionnaire is <strong>mandatory</strong> for your idea to be considered for the next round.<br> <strong>Visit Dashboard Now.</strong>',
                 icon: 'warning',
                 confirmButtonText: 'OK',
                 customClass: {

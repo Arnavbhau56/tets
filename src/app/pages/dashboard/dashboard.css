@@ -4,8 +4,19 @@
     color: white;
     font-family: 'Poppins', sans-serif;
     padding: 60px 40px;
-    padding-top: 60px;
+    box-sizing: border-box;
+    padding-top: 100px;
     min-height: 100vh;
+  }
+
+  .attention{
+    background-color: red;
+    width: 100vw;
+    box-sizing:content-box;
+    padding-top: 80px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
   }
   
   /* Top layout */

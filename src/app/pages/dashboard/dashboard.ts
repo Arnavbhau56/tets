@@ -58,6 +58,7 @@ export class Dashboard implements OnInit {
   showSubmissions: boolean = false;
   showTeamInfo: boolean = true;
   activeSection: string = 'team';
+  showAttentionBanner: boolean = false;
 
   // User data
   currentUser: UserData | null = null;
@@ -148,9 +149,10 @@ export class Dashboard implements OnInit {
           if (responseData.success && responseData.ideas_data && responseData.ideas_data.length > 0) {
             const pendingQuestionnaire = responseData.ideas_data.find((idea: any) => !idea.questionnaire_filled);
             if (pendingQuestionnaire) {
-              Swal.fire({
+              this.showAttentionBanner = true;
+              Swal.fire({ 
                 icon: 'warning',
-                title: 'You need to fill the questionnaire',
+                html: 'Filling the questionnaire is <strong>mandatory</strong> for your idea to be considered for the next round.<br> <strong>Visit Dashboard Now.</strong>',
                 background: '#181f2a',
                 color: '#fff',
                 customClass: {

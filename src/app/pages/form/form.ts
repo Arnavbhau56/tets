@@ -321,7 +321,9 @@ export class Form implements OnInit {
         this.http.post(
           'https://jhtnruktmtjqrfoiyrep.supabase.co/functions/v1/submit-and-analyze-eureka-form',
           payload,
-          { headers: { 'Content-Type': 'application/json' } }
+          { headers: { 'Content-Type': 'application/json',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpodG5ydWt0bXRqcXJmb2l5cmVwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE3NTczMzksImV4cCI6MjA1NzMzMzMzOX0._HZzAtVcTH_cdXZoxIeERNYqS6_hFEjcWbgHK3vxQBY'
+           } }
         ).subscribe({
           // No-op for success/failure, do not block UI
         });
@@ -348,7 +350,10 @@ export class Form implements OnInit {
         this.http.post(
           'https://jhtnruktmtjqrfoiyrep.supabase.co/functions/v1/submit-and-analyze-eureka-form',
           payload,
-          { headers: { 'Content-Type': 'application/json' } }
+          { headers: { 'Content-Type': 'application/json',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpodG5ydWt0bXRqcXJmb2l5cmVwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE3NTczMzksImV4cCI6MjA1NzMzMzMzOX0._HZzAtVcTH_cdXZoxIeERNYqS6_hFEjcWbgHK3vxQBY'
+           },
+             }
         ).subscribe({
           // No-op for success/failure, do not block UI
         });
