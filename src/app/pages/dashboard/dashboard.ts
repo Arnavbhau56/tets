@@ -222,6 +222,8 @@ export class Dashboard implements OnInit {
           this.currentUser = responseData.current_user_data;
           this.userData = responseData.user_data;
           this.ideasData = responseData.ideas_data;
+          // Show attention banner if any idea has questionnaire_filled === false
+          this.showAttentionBanner = !!(this.ideasData && this.ideasData.some((idea: any) => !idea.questionnaire_filled));
           // Show swal if no ideas
           if (!this.ideasData || this.ideasData.length === 0) {
             Swal.fire({
@@ -260,6 +262,8 @@ export class Dashboard implements OnInit {
             this.currentUser = responseData.current_user_data;
             this.userData = responseData.user_data;
             this.ideasData = responseData.ideas_data;
+            // Show attention banner if any idea has questionnaire_filled === false
+            this.showAttentionBanner = !!(this.ideasData && this.ideasData.some((idea: any) => !idea.questionnaire_filled));
           } else {
             console.error('Failed to load dashboard data:', responseData.message);
           }
